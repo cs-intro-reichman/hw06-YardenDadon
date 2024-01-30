@@ -68,11 +68,7 @@ public class Runigram {
     //    System.out.print(")  ");
 	//}
 	
-	// Prints the pixels of the given image.
-	// Each pixel is printed as a triplet of (r,g,b) values.
-	// This function is used for debugging purposes.
-	// For example, to check that some image processing function works correctly,
-	// we can apply the function and then use this function to print the resulting image.
+	
 	private static void print(Color[][] image) {
 		for (int i = 0; i < image.length; i++){
 			for (int j = 0; j < image[i].length; j++){
@@ -85,9 +81,6 @@ public class Runigram {
 		}
 	}
 	
-	/**
-	 * Returns an image which is the horizontally flipped version of the given image. 
-	 */
 	public static Color[][] flippedHorizontally(Color[][] image) {
 		int rows = image.length;
 		int columns = image[0].length;
@@ -192,6 +185,7 @@ public class Runigram {
 		int rows = image1.length;
 		int columns = image1[0].length;
 		Color[][] temp = new Color[rows][columns];
+
 		for (int i = 0; i < temp.length; i++){
 			for (int j = 0; j < temp[i].length; j++){
 				temp[i][j] = blend(image1[i][j], image2[i][j], alpha);
@@ -215,7 +209,7 @@ public class Runigram {
 		for (int i = 0; i <= n; i++) {
 			double alpha = (double) ((n - i + 0.0) / n);
 			display(blend(source, target, alpha));
-			StdDraw.pause(50);
+			StdDraw.pause(500);
 		}
 	}
 	
