@@ -192,9 +192,9 @@ public class Runigram {
 		int rows = image1.length;
 		int columns = image1[0].length;
 		Color[][] temp = new Color[rows][columns];
-		for (int i = 0; i < rows; i++){
-			for (int j = 0; j < columns; j++){
-				temp[i][j] = blend(image1[i][j], image2[i][j], (int)alpha);
+		for (int i = 0; i < temp.length; i++){
+			for (int j = 0; j < temp[i].length; j++){
+				temp[i][j] = blend(image1[i][j], image2[i][j], alpha);
 			}
 		}
 		return temp;
