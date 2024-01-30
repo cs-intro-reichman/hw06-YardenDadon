@@ -194,7 +194,7 @@ public class Runigram {
 		Color[][] temp = new Color[rows][columns];
 		for (int i = 0; i < rows; i++){
 			for (int j = 0; j < columns; j++){
-				temp[i][j] = blend(image1[i][j], image2[i][j], alpha);
+				temp[i][j] = blend(image1[i][j], image2[i][j], (int)alpha);
 			}
 		}
 		return temp;
