@@ -191,7 +191,7 @@ public class Runigram {
 	public static Color[][] blend(Color[][] image1, Color[][] image2, double alpha) {
 		int rows = image1.length;
 		int columns = image1[0].length;
-		Color[][] temp = scaled(image2, rows, columns);
+		Color[][] temp = new Color[rows][columns];
 		for (int i = 0; i < rows; i++){
 			for (int j = 0; j < columns; j++){
 				temp[i][j] = blend(image1[i][j], image2[i][j], alpha);
@@ -215,7 +215,7 @@ public class Runigram {
 		for (int i = 0; i <= n; i++) {
 			double alpha = (double) ((n - i + 0.0) / n);
 			display(blend(source, target, alpha));
-			StdDraw.pause(500);
+			StdDraw.pause(50);
 		}
 	}
 	
