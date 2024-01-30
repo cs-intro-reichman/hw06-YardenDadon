@@ -139,19 +139,17 @@ public class Runigram {
 	 * Returns an image which is the scaled version of the given image. 
 	 * The image is scaled (resized) to have the given width and height.
 	 */
-	public static Color[][] scaled(Color[][] image, int newWidth, int newHeight) {
-		int imageHeight = image.length;
-		int imageWidth = image[0].length;
+	public static Color[][] scaled(Color[][] image, int width, int height) {
+		Color [][] temp = new Color [height][width];
 
-		Color[][] temp = new Color[newHeight][newWidth];
-
-		for (int i = 0; i < temp.length; i++) {
-			for (int j = 0; j < temp[0].length; j++) {
-				int tempRow = (int) ((i * (double)(imageHeight) / (double) (newHeight)));
-				int tempCol = (int) (j * ((double)(imageWidth) / (double) (newWidth)));
-				temp[i][j] = image[tempRow][tempCol];
+		for (int i = 0; i < temp.length; i++) { 
+			for (int j = 0; j < temp[i].length; j++) {
+				int row = (int) (i * ((double) image.length /  (double) height));
+				int column = (int) (j * ((double) image[i].length /  (double) width));
+				temp [i][j] = image [row][column];
 			}
 		}
+
 		return temp;
 	}
 	
@@ -182,13 +180,10 @@ public class Runigram {
 	 * The two images must have the same dimensions.
 	 */
 	public static Color[][] blend(Color[][] image1, Color[][] image2, double alpha) {
-		int rows = image1.length;
-		int columns = image1[0].length;
-		Color[][] temp = new Color[rows][columns];
-
-		for (int i = 0; i < temp.length; i++){
-			for (int j = 0; j < temp[i].length; j++){
-				temp[i][j] = blend(image1[i][j], image2[i][j], alpha);
+		Color [][] temp = new Color [image1.length][image1[0].length];
+		for (int i = 0; i < image1.length; i++) {
+			for (int j = 0; j < image1[0].length; j ++) {
+				temp[i][j] =  blend(image1[i][j], image2[i][j], alpha);
 			}
 		}
 		return temp;
@@ -202,12 +197,11 @@ public class Runigram {
 	 */
 	public static void morph(Color[][] source, Color[][] target, int n) {
 		//scale the second photo to the first's dimentions
-		if (source.length != target.length || source[0].length != target[0].length){
+		if((source.length != target.length) && (source[0].length != target[0].length)) {
 			target = scaled(target, source[0].length, source.length);
 		}
-
 		for (int i = 0; i <= n; i++) {
-			double alpha = (double) ((n - i + 0.0) / n);
+			double alpha = ((double)(n-i)/n);
 			display(blend(source, target, alpha));
 			StdDraw.pause(500);
 		}
