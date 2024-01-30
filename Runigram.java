@@ -6,19 +6,20 @@ import java.awt.Color;
 public class Runigram {
 
 	public static void main(String[] args) {
-	    
 		//// Hide / change / add to the testing code below, as needed.
 		
 		// Tests the reading and printing of an image:	
 		Color[][] tinypic = read("tinypic.ppm");
-		print(tinypic);
+		//print(tinypic);
 
 		// Creates an image which will be the result of various 
 		// image processing operations:
+
 		Color[][] imageOut;
 
 		// Tests the horizontal flipping of an image:
-		imageOut = flippedHorizontally(tinypic);
+
+		imageOut = scaled(tinypic, 3, 5);
 		System.out.println();
 		print(imageOut);
 		
@@ -42,66 +43,120 @@ public class Runigram {
 		// creates from the 3 colors a new Color object, and 
 		// makes pixel (i,j) refer to that object.
 		//// Replace the following statement with your code.
-		return null;
+		for (int i = 0; i < numRows; i++){
+			for (int j = 0; j < numCols; j++){
+				//Makes the values in the ppm file into read ints
+				int r = in.readInt();
+				int g = in.readInt();
+				int b = in.readInt();
+				//Uses Color to hold three values, then sets the double array
+				image[i][j] = new Color(r, g, b);
+			}
+		}
+		return image;
 	}
-
+	
     // Prints the RGB values of a given color.
-	private static void print(Color c) {
-	    System.out.print("(");
-		System.out.printf("%3s,", c.getRed());   // Prints the red component
-		System.out.printf("%3s,", c.getGreen()); // Prints the green component
-        System.out.printf("%3s",  c.getBlue());  // Prints the blue component
-        System.out.print(")  ");
-	}
-
+	//private static void print(Color c) {
+	//    System.out.print("(");
+	//	System.out.printf("%3s,", c.getRed());   // Prints the red component
+//		System.out.printf("%3s,", c.getGreen()); // Prints the green component
+  //      System.out.printf("%3s",  c.getBlue());  // Prints the blue component
+    //    System.out.print(")  ");
+	//}
+	
 	// Prints the pixels of the given image.
 	// Each pixel is printed as a triplet of (r,g,b) values.
 	// This function is used for debugging purposes.
 	// For example, to check that some image processing function works correctly,
 	// we can apply the function and then use this function to print the resulting image.
 	private static void print(Color[][] image) {
-		//// Replace this comment with your code
+		for (int i = 0; i < image.length; i++){
+			for (int j = 0; j < image[i].length; j++){
+		System.out.print("(");
+		System.out.printf("%3s,", image[i][j].getRed());   // Prints the red component
+		System.out.printf("%3s,", image[i][j].getGreen()); // Prints the green component
+        System.out.printf("%3s",  image[i][j].getBlue());  // Prints the blue component
+        System.out.print(")  ");
+			}
+		}
 	}
 	
 	/**
 	 * Returns an image which is the horizontally flipped version of the given image. 
 	 */
 	public static Color[][] flippedHorizontally(Color[][] image) {
-		//// Replace the following statement with your code
-		return null;
+		int rows = image.length;
+		int columns = image[0].length;
+		Color[][] temp = new Color[rows][columns];
+		for (int i = 0, endRow = image.length; i < endRow; i++){
+			for (int j = 0; j < image[i].length; j++){
+				temp[i][temp[i].length -j -1] = image[i][j];
+			}
+		}
+		return temp;
 	}
 	
 	/**
 	 * Returns an image which is the vertically flipped version of the given image. 
 	 */
 	public static Color[][] flippedVertically(Color[][] image){
-		//// Replace the following statement with your code
-		return null;
+		int rows = image.length;
+		int columns = image[0].length;
+		Color[][] temp = new Color[rows][columns];
+		for (int i = 0, endRow = image.length; i < endRow; i++){
+			for (int j = 0; j < image[i].length; j++){
+				temp[temp.length -i -1][j] = image[i][j];
+			}
+		}
+		return temp;
 	}
 	
 	// Computes the luminance of the RGB values of the given pixel, using the formula 
-	// lum = 0.299 * r + 0.587 * g + 0.114 * b, and returns a Color object consisting
+	//lum = 0.299 * r + 0.587 * g + 0.114 * b, and returns a Color object consisting
 	// the three values r = lum, g = lum, b = lum.
 	public static Color luminance(Color pixel) {
-		//// Replace the following statement with your code
-		return null;
+		int red = pixel.getRed();
+		int green = pixel.getGreen();
+		int blue = pixel.getBlue();
+		int lum = (int)(0.299 * red + 0.587 * green + 0.114 * blue);
+		Color gray = new Color(lum, lum, lum);
+		return gray;
 	}
 	
 	/**
 	 * Returns an image which is the grayscaled version of the given image.
 	 */
 	public static Color[][] grayScaled(Color[][] image) {
-		//// Replace the following statement with your code
-		return null;
+		int rows = image.length;
+		int columns = image[0].length;
+		Color[][] temp = new Color[rows][columns];
+		for (int i = 0; i < rows; i++){
+			for (int j = 0; j < columns; j++){
+				temp[i][j] = luminance(image[i][j]);
+			}
+		}
+		return temp;
 	}	
 	
 	/**
 	 * Returns an image which is the scaled version of the given image. 
 	 * The image is scaled (resized) to have the given width and height.
 	 */
-	public static Color[][] scaled(Color[][] image, int width, int height) {
-		//// Replace the following statement with your code
-		return null;
+	public static Color[][] scaled(Color[][] image, int newWidth, int newHeight) {
+		int imageHeight = image.length;
+		int imageWidth = image[0].length;
+
+		Color[][] temp = new Color[newHeight][newWidth];
+
+		for (int i = 0; i < temp.length; i++) {
+			for (int j = 0; j < temp[0].length; j++) {
+				int tempRow = (int) ((i * (double)(imageHeight) / (double) (newHeight)));
+				int tempCol = (int) (j * ((double)(imageWidth) / (double) (newWidth)));
+				temp[i][j] = image[tempRow][tempCol];
+			}
+		}
+		return temp;
 	}
 	
 	/**
