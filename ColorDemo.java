@@ -29,7 +29,7 @@ public class ColorDemo {
         // Tests the print method: 
 		System.out.print("Red = "); print(red);
 		System.out.println();
-
+	
         // Constructs an array of Color objects, and prints the array elements.
 		Color[] bwbw = { black, white, black, white };
 		for (int i = 0; i < bwbw.length; i++) {
@@ -48,7 +48,7 @@ public class ColorDemo {
 			                         { white, black, white, black } ,
 		                           };
 	}
-
+	
     /**
 	 * Prints the RGB values of a given color, using the format "(rrr,ggg,bbb)". 
 	 * @param c - the given color
@@ -60,5 +60,8 @@ public class ColorDemo {
         System.out.printf("%3s",  c.getBlue());  // Prints the blue component
         System.out.print(")  ");
 	}
+
+
+
 }
 
